@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
-from blog import schemas, models
+from blog import schemas
 from blog.database import get_db
 from blog.services.blog_services import get_all_blogs, create_blog, get_one_blog, update_one_blog, destroy_blog
 
