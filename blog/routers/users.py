@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from blog import schemas
 from blog.database import get_db
+from blog.oauth2 import get_current_user
 from blog.services.user_services import get_all_users, create_user, get_one_user
 
 router = APIRouter(
@@ -17,7 +18,7 @@ def users_list(db: Session = Depends(get_db)):
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=dict[str, schemas.UserDetail])
-def add_user(user: schemas.User, db: Session = Depends(get_db)):
+def add_user(user: schemas.User, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_user)):
     return create_user(user, db)
 
 
