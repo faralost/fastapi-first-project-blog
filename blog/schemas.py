@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class BlogBase(BaseModel):
@@ -17,15 +17,24 @@ class Blog(BlogBase):
 class UserDetail(BaseModel):
     id: int
     name: str
-    email: str
+    email: EmailStr
     blogs: list[Blog]
 
     class Config:
         orm_mode = True
 
 
+class UserDetailInBlog(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
+
+    class Config:
+        orm_mode = True
+
+
 class BlogDetail(Blog):
-    author: UserDetail
+    author: UserDetailInBlog
 
     class Config:
         orm_mode = True
@@ -33,5 +42,5 @@ class BlogDetail(Blog):
 
 class User(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     password: str
